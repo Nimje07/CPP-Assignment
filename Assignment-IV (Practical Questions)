@@ -1,0 +1,1148 @@
+51. Implementing a Base Class Shape with Virtual Functions
+cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Shape {
+public:
+    virtual double area() = 0; // Pure virtual function
+};
+
+class Circle : public Shape {
+    double radius;
+public:
+    Circle(double r) : radius(r) {}
+    double area() override { return M_PI * radius * radius; }
+};
+
+class Rectangle : public Shape {
+    double width, height;
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+    double area() override { return width * height; }
+};
+
+class Triangle : public Shape {
+    double base, height;
+public:
+    Triangle(double b, double h) : base(b), height(h) {}
+    double area() override { return 0.5 * base * height; }
+};
+
+int main() {
+    Shape* s1 = new Circle(5);
+    Shape* s2 = new Rectangle(4, 6);
+    Shape* s3 = new Triangle(4, 5);
+
+    cout << "Circle Area: " << s1->area() << endl;
+    cout << "Rectangle Area: " << s2->area() << endl;
+    cout << "Triangle Area: " << s3->area() << endl;
+
+    delete s1;
+    delete s2;
+    delete s3;
+
+    return 0;
+}
+52. Base Class Animal with Overridden speak() Function
+cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    virtual void speak() { cout << "Animal makes a sound!" << endl; }
+};
+
+class Dog : public Animal {
+public:
+    void speak() override { cout << "Dog barks!" << endl; }
+};
+
+class Cat : public Animal {
+public:
+    void speak() override { cout << "Cat meows!" << endl; }
+};
+
+class Bird : public Animal {
+public:
+    void speak() override { cout << "Bird chirps!" << endl; }
+};
+
+int main() {
+    Animal* a1 = new Dog();
+    Animal* a2 = new Cat();
+    Animal* a3 = new Bird();
+
+    a1->speak();
+    a2->speak();
+    a3->speak();
+
+    delete a1;
+    delete a2;
+    delete a3;
+
+    return 0;
+}
+56. Swap Two Values Using a Pointer
+cpp
+#include <iostream>
+using namespace std;
+
+void swapValues(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 10, y = 20;
+    cout << "Before swap: x = " << x << ", y = " << y << endl;
+
+    swapValues(&x, &y);
+
+    cout << "After swap: x = " << x << ", y = " << y << endl;
+
+    return 0;
+}
+// programm:57
+#include <iostream>
+#include <string>
+
+class Student {
+public:
+    // Constructor
+    Student(std::string name, int age, float gpa) : name_(name), age_(age), gpa_(gpa) {}
+
+    // Member functions to access data members
+    std::string getName() const { return name_; }
+    int getAge() const { return age_; }
+    float getGPA() const { return gpa_; }
+
+private:
+    std::string name_;
+    int age_;
+    float gpa_;
+};
+
+int main() {
+    // Create a dynamic object of Student using the new operator
+    Student* studentPtr = new Student("Alice", 20, 3.8f);
+
+    // Access members using the pointer and the -> operator
+    std::cout << "Name: " << studentPtr->getName() << std::endl;
+    std::cout << "Age: " << studentPtr->getAge() << std::endl;
+    std.cout << "GPA: " << studentPtr->getGPA() << std::endl;
+
+    // Release the dynamically allocated memory using the delete operator
+    delete studentPtr;
+    studentPtr = nullptr; // Good practice to set the pointer to null after deleting
+
+    return 0;
+}
+58. Store & Display Multiple Book Objects Using a Pointer to an Array
+cpp
+#include <iostream>
+using namespace std;
+
+class Book {
+public:
+    string title, author;
+    int price;
+
+    void inputDetails() {
+        cout << "Enter Title: "; cin >> title;
+        cout << "Enter Author: "; cin >> author;
+        cout << "Enter Price: "; cin >> price;
+    }
+
+    void displayDetails() {
+        cout << "Title: " << title << ", Author: " << author << ", Price: " << price << endl;
+    }
+};
+
+int main() {
+    int n;
+    cout << "Enter number of books: ";
+    cin >> n;
+
+    Book* books = new Book[n];
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nEnter details for Book " << i+1 << ":\n";
+        books[i].inputDetails();
+    }
+
+    cout << "\nBook Details:\n";
+    for (int i = 0; i < n; i++) {
+        books[i].displayDetails();
+    }
+
+    delete[] books;  // Free allocated memory
+
+    return 0;
+}
+60. Box Class Returning the Current Object Using this Pointer
+cpp
+#include <iostream>
+using namespace std;
+
+class Box {
+public:
+    int width, height, depth;
+
+    Box(int w, int h, int d) : width(w), height(h), depth(d) {}
+
+    Box* getCurrentObject() {
+        return this;  // Returning the current object
+    }
+
+    void display() {
+        cout << "Box dimensions: " << width << " x " << height << " x " << depth << endl;
+    }
+};
+
+int main() {
+    Box myBox(10, 20, 30);
+    myBox.getCurrentObject()->display();
+
+    return 0;
+}
+61. Chaining Member Function Calls Using this Pointer in Person Class
+cpp
+#include <iostream>
+using namespace std;
+
+class Person {
+public:
+    string name;
+    int age;
+
+    Person* setName(string n) {
+        name = n;
+        return this;
+    }
+
+    Person* setAge(int a) {
+        age = a;
+        return this;
+    }
+
+    void display() {
+        cout << "Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+int main() {
+    Person p;
+    p.setName("Alice")->setAge(25)->display();
+
+    return 0;
+}
+62. Counter class comparing two objects using this pointer
+
+cpp
+class Counter {
+    int value;
+public:
+    Counter(int v) : value(v) {}
+    bool isEqual(const Counter& other) {
+        return this->value == other.value;
+    }
+};
+63. Abstract class Vehicle with Car and Bike (pure virtual function)
+
+cpp
+class Vehicle {
+public:
+    virtual void display() = 0;
+};
+
+class Car : public Vehicle {
+public:
+    void display() override { std::cout << "Car\n"; }
+};
+
+class Bike : public Vehicle {
+public:
+    void display() override { std::cout << "Bike\n"; }
+};
+64. Runtime polymorphism: Shape, Circle, Square
+
+cpp
+class Shape {
+public:
+    virtual void draw() { std::cout << "Drawing Shape\n"; }
+};
+
+class Circle : public Shape {
+public:
+    void draw() override { std::cout << "Drawing Circle\n"; }
+};
+
+class Square : public Shape {
+public:
+    void draw() override { std::cout << "Drawing Square\n"; }
+};
+Polymorphism is achieved by calling draw() through a Shape* pointer.
+
+65. Account with pure virtual calculateInterest, SavingsAccount, CurrentAccount
+
+cpp
+class Account {
+public:
+    virtual double calculateInterest() = 0;
+};
+
+class SavingsAccount : public Account {
+public:
+    double calculateInterest() override { return 100.0; }
+};
+
+class CurrentAccount : public Account {
+public:
+    double calculateInterest() override { return 50.0; }
+};
+66. Polymorphism: Media, Book, DVD
+
+cpp
+class Media {
+public:
+    virtual void display() { std::cout << "Media\n"; }
+};
+
+class Book : public Media {
+public:
+    void display() override { std::cout << "Book\n"; }
+};
+
+class DVD : public Media {
+public:
+    void display() override { std::cout << "DVD\n"; }
+};
+67. Appliance hierarchy with virtual functions
+
+cpp
+class Appliance {
+public:
+    virtual void functionality() { std::cout << "Generic Appliance\n"; }
+};
+
+class WashingMachine : public Appliance {
+public:
+    void functionality() override { std::cout << "Washes clothes\n"; }
+};
+
+class Refrigerator : public Appliance {
+public:
+    void functionality() override { std::cout << "Keeps food cold\n"; }
+};
+
+class Microwave : public Appliance {
+public:
+    void functionality() override { std::cout << "Heats food\n"; }
+};
+68. Polymorphism: Shape, Circle, Rectangle (area calculation)
+
+cpp
+class Shape {
+public:
+    virtual double area() = 0;
+};
+
+class Circle : public Shape {
+    double r;
+public:
+    Circle(double radius) : r(radius) {}
+    double area() override { return 3.14159 * r * r; }
+};
+
+class Rectangle : public Shape {
+    double w, h;
+public:
+    Rectangle(double width, double height) : w(width), h(height) {}
+    double area() override { return w * h; }
+};
+69. Abstract Employee class with Manager and Engineer
+
+cpp
+class Employee {
+public:
+    virtual double calculateSalary() = 0;
+    virtual void displayDetails() = 0;
+};
+
+class Manager : public Employee {
+public:
+    double calculateSalary() override { return 5000; }
+    void displayDetails() override { std::cout << "Manager\n"; }
+};
+
+class Engineer : public Employee {
+public:
+    double calculateSalary() override { return 4000; }
+    void displayDetails() override { std::cout << "Engineer\n"; }
+};
+70. Abstract Payment class with CreditCardPayment and DebitCardPayment
+
+cpp
+class Payment {
+public:
+    virtual void processPayment() = 0;
+};
+
+class CreditCardPayment : public Payment {
+public:
+    void processPayment() override { std::cout << "Credit Card Payment\n"; }
+};
+
+class DebitCardPayment : public Payment {
+public:
+    void processPayment() override { std::cout << "Debit Card Payment\n"; }
+};
+71. Abstract Device class with Laptop and Smartphone
+
+cpp
+class Device {
+public:
+    virtual void turnOn() = 0;
+};
+
+class Laptop : public Device {
+public:
+    void turnOn() override { std::cout << "Laptop On\n"; }
+};
+
+class Smartphone : public Device {
+public:
+    void turnOn() override { std::cout << "Smartphone On\n"; }
+};
+72. Division by zero with exception handling
+
+cpp
+try {
+    int a = 10, b = 0;
+    if (b == 0) throw std::runtime_error("Division by zero");
+    std::cout << a / b;
+} catch (const std::exception& e) {
+    std::cout << e.what();
+}
+73. Multiple catch blocks for different exceptions
+
+cpp
+try {
+    throw 10; // Try changing to throw 'A' or throw std::runtime_error("Error")
+} catch (int e) {
+    std::cout << "Integer exception\n";
+} catch (char e) {
+    std::cout << "Char exception\n";
+} catch (...) {
+    std::cout << "Other exception\n";
+}
+74. Custom InvalidAgeException
+
+cpp
+class InvalidAgeException : public std::exception {
+public:
+    const char* what() const noexcept override { return "Invalid age entered"; }
+};
+
+int age;
+std::cin >> age;
+try {
+    if (age < 0 || age > 150) throw InvalidAgeException();
+    std::cout << "Valid age\n";
+} catch (const InvalidAgeException& e) {
+    std::cout << e.what();
+}
+75. Exception handling for file I/O errors
+
+cpp
+#include <fstream>
+try {
+    std::ifstream file("nonexistent.txt");
+    if (!file) throw std::runtime_error("File not found");
+    // File operations
+} catch (const std::exception& e) {
+    std::cout << e.what();
+}
+76. finally Block Equivalent in C++ (RAII)
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+class Resource {
+public:
+    Resource() { cout << "Resource acquired\n"; }
+    ~Resource() { cout << "Resource released\n"; } // acts like `finally`
+};
+
+int main() {
+    try {
+        Resource r;
+        throw runtime_error("Some exception");
+    } catch (const exception& e) {
+        cout << "Caught: " << e.what() << endl;
+    }
+    return 0;
+}
+77. Function Template for Linear Search
+cpp
+Copy
+Edit
+template <typename T>
+int linearSearch(T arr[], int size, T key) {
+    for (int i = 0; i < size; ++i) {
+        if (arr[i] == key)
+            return i;
+    }
+    return -1;
+}
+78. Stack Class Template
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class Stack {
+    T arr[100];
+    int top = -1;
+
+public:
+    void push(T val) {
+        if (top < 99) arr[++top] = val;
+    }
+
+    void pop() {
+        if (top >= 0) top--;
+    }
+
+    void display() {
+        for (int i = 0; i <= top; ++i)
+            cout << arr[i] << " ";
+        cout << endl;
+    }
+};
+79. Template to Find Maximum
+cpp
+Copy
+Edit
+template <typename T>
+T maxVal(T a, T b) {
+    return (a > b) ? a : b;
+}
+80. Linked List Class Template
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class LinkedList {
+    struct Node {
+        T data;
+        Node* next;
+    } *head = nullptr;
+
+public:
+    void insert(T val) {
+        Node* newNode = new Node{val, head};
+        head = newNode;
+    }
+
+    void remove() {
+        if (head) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+
+    void display() {
+        for (Node* p = head; p; p = p->next)
+            cout << p->data << " ";
+        cout << endl;
+    }
+};
+81. Bubble Sort Template
+cpp
+Copy
+Edit
+template <typename T>
+void bubbleSort(T arr[], int size) {
+    for (int i = 0; i < size-1; ++i)
+        for (int j = 0; j < size-i-1; ++j)
+            if (arr[j] > arr[j+1])
+                swap(arr[j], arr[j+1]);
+}
+82. Queue Class Template
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class Queue {
+    T arr[100];
+    int front = 0, rear = -1;
+
+public:
+    void enqueue(T val) {
+        if (rear < 99) arr[++rear] = val;
+    }
+
+    void dequeue() {
+        if (front <= rear) front++;
+    }
+
+    void display() {
+        for (int i = front; i <= rear; ++i)
+            cout << arr[i] << " ";
+        cout << endl;
+    }
+};
+83. Polymorphic Bank Accounts
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+class Account {
+public:
+    virtual void display() = 0;
+};
+
+class Savings : public Account {
+public:
+    void display() override { cout << "Savings Account\n"; }
+};
+
+class Current : public Account {
+public:
+    void display() override { cout << "Current Account\n"; }
+};
+
+int main() {
+    Account* acc;
+    int choice;
+    cout << "1. Savings\n2. Current\nChoice: ";
+    cin >> choice;
+
+    if (choice == 1)
+        acc = new Savings();
+    else
+        acc = new Current();
+
+    acc->display();
+    delete acc;
+}
+84. Smart Pointers for Memory Management
+cpp
+Copy
+Edit
+#include <iostream>
+#include <memory>
+using namespace std;
+
+class Demo {
+public:
+    Demo() { cout << "Demo created\n"; }
+    ~Demo() { cout << "Demo destroyed\n"; }
+};
+
+int main() {
+    unique_ptr<Demo> d = make_unique<Demo>();
+    return 0;
+}
+85. Safe Array with Exception Handling and Templates
+cpp
+Copy
+Edit
+#include <iostream>
+#include <stdexcept>
+using namespace std;
+
+template <typename T, int SIZE>
+class SafeArray {
+    T arr[SIZE];
+
+public:
+    T& operator[](int index) {
+        if (index < 0 || index >= SIZE)
+            throw out_of_range("Index out of bounds");
+        return arr[index];
+    }
+};
+
+int main() {
+    SafeArray<int, 5> arr;
+    try {
+        arr[2] = 10;
+        cout << arr[2] << endl;
+        arr[10] = 20;  // This will throw
+    } catch (const exception& e) {
+        cout << "Error: " << e.what() << endl;
+    }
+}
+86. Demonstrating Virtual Inheritance to Avoid the Diamond Problem
+cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    void display() { cout << "Class A" << endl; }
+};
+
+class B : virtual public A {};  // Virtual inheritance
+class C : virtual public A {};  // Virtual inheritance
+class D : public B, public C {}; // D inherits from both B and C
+
+int main() {
+    D obj;
+    obj.display();  // No ambiguity due to virtual inheritance
+    return 0;
+}
+87. Polynomial Class with Operator Overloading for Addition & Multiplication
+cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Polynomial {
+    vector<int> coeffs;  // Coefficients of polynomial
+
+public:
+    Polynomial(vector<int> c) : coeffs(c) {}
+
+    Polynomial operator+(const Polynomial& other) {
+        int n = max(coeffs.size(), other.coeffs.size());
+        vector<int> result(n, 0);
+
+        for (int i = 0; i < coeffs.size(); i++) result[i] += coeffs[i];
+        for (int i = 0; i < other.coeffs.size(); i++) result[i] += other.coeffs[i];
+
+        return Polynomial(result);
+    }
+
+    void display() {
+        for (int i = coeffs.size() - 1; i >= 0; i--) {
+            cout << coeffs[i] << (i > 0 ? "x^" + to_string(i) + " + " : "");
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Polynomial p1({3, 2, 1});  // 3 + 2x + x^2
+    Polynomial p2({5, 1});     // 5 + x
+    Polynomial sum = p1 + p2;
+
+    cout << "Polynomial 1: ";
+    p1.display();
+    cout << "Polynomial 2: ";
+    p2.display();
+    cout << "Sum: ";
+    sum.display();
+
+    return 0;
+}
+88. Function Pointers for Implementing a Callback Mechanism
+cpp
+#include <iostream>
+using namespace std;
+
+void callbackFunction(int value) {
+    cout << "Callback executed with value: " << value << endl;
+}
+
+void callerFunction(void (*callback)(int), int param) {
+    cout << "Calling the callback function...\n";
+    callback(param);
+}
+
+int main() {
+    callerFunction(callbackFunction, 10);
+    return 0;
+}
+91. Function Template for Generic Matrix Operations
+cpp
+#include <iostream>
+using namespace std;
+
+template <typename T>
+void addMatrix(T a[2][2], T b[2][2], T result[2][2]) {
+    for (int i = 0; i < 2; i++)
+        for (int j = 0; j < 2; j++)
+            result[i][j] = a[i][j] + b[i][j];
+}
+
+int main() {
+    int mat1[2][2] = {{1, 2}, {3, 4}};
+    int mat2[2][2] = {{5, 6}, {7, 8}};
+    int result[2][2];
+
+    addMatrix(mat1, mat2, result);
+
+    cout << "Matrix Addition Result:\n";
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++)
+            cout << result[i][j] << " ";
+        cout << endl;
+    }
+
+    return 0;
+}
+92. Plugin System with Polymorphism
+cpp
+Copy
+Edit
+#include <iostream>
+#include <vector>
+#include <memory>
+
+// Abstract Plugin interface
+class Plugin {
+public:
+    virtual void execute() = 0; // Pure virtual function
+    virtual ~Plugin() = default;
+};
+
+// Concrete Plugin classes
+class PluginA : public Plugin {
+public:
+    void execute() override {
+        std::cout << "Plugin A executed!" << std::endl;
+    }
+};
+
+class PluginB : public Plugin {
+public:
+    void execute() override {
+        std::cout << "Plugin B executed!" << std::endl;
+    }
+};
+
+// Plugin manager to load and execute plugins
+class PluginManager {
+public:
+    void addPlugin(std::shared_ptr<Plugin> plugin) {
+        plugins.push_back(plugin);
+    }
+
+    void runPlugins() {
+        for (auto& plugin : plugins) {
+            plugin->execute();
+        }
+    }
+
+private:
+    std::vector<std::shared_ptr<Plugin>> plugins;
+};
+
+int main() {
+    PluginManager manager;
+
+    manager.addPlugin(std::make_shared<PluginA>());
+    manager.addPlugin(std::make_shared<PluginB>());
+
+    manager.runPlugins(); // Execute all plugins
+
+    return 0;
+}
+93. Generic Binary Tree using Class Templates
+cpp
+Copy
+Edit
+#include <iostream>
+
+template <typename T>
+class BinaryTree {
+public:
+    BinaryTree(T value) : value(value), left(nullptr), right(nullptr) {}
+
+    void insertLeft(T value) {
+        left = new BinaryTree(value);
+    }
+
+    void insertRight(T value) {
+        right = new BinaryTree(value);
+    }
+
+    void printInOrder() {
+        if (left) left->printInOrder();
+        std::cout << value << " ";
+        if (right) right->printInOrder();
+    }
+
+private:
+    T value;
+    BinaryTree* left;
+    BinaryTree* right;
+};
+
+int main() {
+    BinaryTree<int> tree(10);
+    tree.insertLeft(5);
+    tree.insertRight(15);
+
+    tree.printInOrder(); // Output: 5 10 15
+    return 0;
+}
+94. Dynamic Dispatch with Polymorphism
+cpp
+Copy
+Edit
+#include <iostream>
+
+class Shape {
+public:
+    virtual void draw() const = 0;
+    virtual ~Shape() = default;
+};
+
+class Circle : public Shape {
+public:
+    void draw() const override {
+        std::cout << "Drawing Circle!" << std::endl;
+    }
+};
+
+class Rectangle : public Shape {
+public:
+    void draw() const override {
+        std::cout << "Drawing Rectangle!" << std::endl;
+    }
+};
+
+int main() {
+    Shape* shape1 = new Circle();
+    Shape* shape2 = new Rectangle();
+
+    shape1->draw(); // Dynamic dispatch
+    shape2->draw(); // Dynamic dispatch
+
+    delete shape1;
+    delete shape2;
+    return 0;
+}
+95. Memory-Efficient Container using Smart Pointers and Templates
+cpp
+Copy
+Edit
+#include <iostream>
+#include <memory>
+#include <vector>
+
+template <typename T>
+class SafeContainer {
+public:
+    void addElement(const T& element) {
+        container.push_back(std::make_unique<T>(element));
+    }
+
+    void displayElements() {
+        for (const auto& element : container) {
+            std::cout << *element << " ";
+        }
+        std::cout << std::endl;
+    }
+
+private:
+    std::vector<std::unique_ptr<T>> container;
+};
+
+int main() {
+    SafeContainer<int> container;
+    container.addElement(10);
+    container.addElement(20);
+    container.displayElements(); // Output: 10 20
+
+    return 0;
+}
+96. Ecosystem Simulation with Virtual Functions and Inheritance
+cpp
+Copy
+Edit
+#include <iostream>
+
+class Animal {
+public:
+    virtual void speak() const = 0;
+    virtual ~Animal() = default;
+};
+
+class Lion : public Animal {
+public:
+    void speak() const override {
+        std::cout << "Roar!" << std::endl;
+    }
+};
+
+class Elephant : public Animal {
+public:
+    void speak() const override {
+        std::cout << "Trumpet!" << std::endl;
+    }
+};
+
+int main() {
+    Animal* animals[] = {new Lion(), new Elephant()};
+    
+    for (auto& animal : animals) {
+        animal->speak(); // Virtual dispatch
+        delete animal;
+    }
+
+    return 0;
+}
+97. Mathematical Library using Exception Handling and Function Templates
+cpp
+Copy
+Edit
+#include <iostream>
+#include <stdexcept>
+
+template <typename T>
+T divide(T a, T b) {
+    if (b == 0) {
+        throw std::invalid_argument("Division by zero is not allowed.");
+    }
+    return a / b;
+}
+
+int main() {
+    try {
+        std::cout << divide(10, 2) << std::endl; // Output: 5
+        std::cout << divide(10, 0) << std::endl; // Throws exception
+    }
+    catch (const std::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+98. Polymorphic GUI Framework
+cpp
+Copy
+Edit
+#include <iostream>
+
+class Widget {
+public:
+    virtual void render() const = 0;
+    virtual ~Widget() = default;
+};
+
+class Button : public Widget {
+public:
+    void render() const override {
+        std::cout << "Rendering Button!" << std::endl;
+    }
+};
+
+class TextBox : public Widget {
+public:
+    void render() const override {
+        std::cout << "Rendering TextBox!" << std::endl;
+    }
+};
+
+int main() {
+    Widget* widgets[] = {new Button(), new TextBox()};
+
+    for (auto& widget : widgets) {
+        widget->render(); // Polymorphism in action
+        delete widget;
+    }
+
+    return 0;
+}
+99. Generic Algorithm Library with Virtual Functions and Templates
+cpp
+Copy
+Edit
+#include <iostream>
+
+template <typename T>
+class Algorithm {
+public:
+    virtual T execute(T a, T b) = 0;
+    virtual ~Algorithm() = default;
+};
+
+template <typename T>
+class Add : public Algorithm<T> {
+public:
+    T execute(T a, T b) override {
+        return a + b;
+    }
+};
+
+template <typename T>
+class Multiply : public Algorithm<T> {
+public:
+    T execute(T a, T b) override {
+        return a * b;
+    }
+};
+
+int main() {
+    Add<int> addAlgo;
+    Multiply<int> mulAlgo;
+
+    std::cout << addAlgo.execute(3, 4) << std::endl; // Output: 7
+    std::cout << mulAlgo.execute(3, 4) << std::endl; // Output: 12
+
+    return 0;
+}
+100. Type-Safe Collection Framework with Polymorphism, Templates, and Exception Handling
+cpp
+Copy
+Edit
+#include <iostream>
+#include <memory>
+#include <vector>
+#include <stdexcept>
+
+template <typename T>
+class Collection {
+public:
+    void addElement(const T& element) {
+        elements.push_back(element);
+    }
+
+    T getElement(int index) {
+        if (index < 0 || index >= elements.size()) {
+            throw std::out_of_range("Index out of range.");
+        }
+        return elements[index];
+    }
+
+private:
+    std::vector<T> elements;
+};
+
+int main() {
+    try {
+        Collection<int> collection;
+        collection.addElement(5);
+        collection.addElement(10);
+
+        std::cout << collection.getElement(1) << std::endl; // Output: 10
+        std::cout << collection.getElement(5) << std::endl; // Throws exception
+    }
+    catch (const std::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
