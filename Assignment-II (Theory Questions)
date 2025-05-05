@@ -1,0 +1,276 @@
+1. What is the purpose of the main function in a C++ program?
+
+The main() function is the entry point of a C++ program. When the program is executed, the operating system calls the main() function, and execution starts from there. It's where the program begins and ends.
+
+2. Explain the significance of the return type of the main function.
+
+The return type of main() is usually int, which signifies that it returns an integer value. This value is passed to the operating system to indicate the status of the program's execution. A return value of 0 typically signifies successful execution, while non-zero values indicate errors or abnormal termination.
+
+3. What are the two valid signatures of the main function in C++?
+
+The two valid signatures of the main() function in C++ are:
+
+cpp
+Copy
+Edit
+int main() {
+    // code
+}
+and
+
+cpp
+Copy
+Edit
+int main(int argc, char* argv[]) {
+    // code
+}
+The second version allows command-line arguments to be passed to the program.
+
+4. What is function prototyping and why is it necessary in C++?
+
+Function prototyping is the declaration of a function before its definition. It specifies the function’s return type, name, and parameters. Prototyping is necessary because it allows the compiler to know about the function before it is called, ensuring proper type checking and avoiding undefined behavior.
+
+5. How do you declare a function prototype for a function that returns an integer and takes two integer parameters?
+
+The prototype would look like this:
+
+cpp
+Copy
+Edit
+int myFunction(int, int);
+6. What happens if a function is used before it is prototyped?
+
+If a function is used before it is prototyped or defined, the compiler will not recognize it, resulting in an error. The function must either be prototyped or defined before it is called.
+
+7. What is the difference between a declaration and a definition of a function?
+
+Declaration: It provides the function's signature (name, return type, parameters) but does not provide the implementation. It tells the compiler that the function exists.
+
+Definition: It provides the full implementation of the function, including the body of the function.
+
+8. How do you call a simple function that takes no parameters and returns void?
+
+To call a function that takes no parameters and returns void, you simply write the function name followed by parentheses:
+
+cpp
+Copy
+Edit
+void myFunction() {
+    // code
+}
+
+int main() {
+    myFunction(); // calling the function
+    return 0;
+}
+9. Explain the concept of "scope" in the context of functions.
+
+In C++, scope refers to the region of the program where a variable or function can be accessed. In the context of functions, the scope can refer to:
+
+Local scope (inside the function),
+
+Global scope (accessible throughout the program after declaration).
+
+10. What is call by reference in C++?
+
+Call by reference is a method of passing arguments to a function where the function receives the actual reference (memory address) of the variable, not a copy of it. This allows the function to modify the original variable’s value.
+
+11. How does call by reference differ from call by value?
+
+Call by value: A copy of the argument is passed to the function. Changes made inside the function do not affect the original argument.
+
+Call by reference: The actual argument is passed, allowing the function to modify the original value.
+
+12. Provide an example of a function that uses call by reference to swap two integers.
+
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+void swap(int &a, int &b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main() {
+    int x = 5, y = 10;
+    cout << "Before swap: x = " << x << ", y = " << y << endl;
+    swap(x, y);
+    cout << "After swap: x = " << x << ", y = " << y << endl;
+    return 0;
+}
+13. What is an inline function in C++?
+
+An inline function is a function whose code is inserted directly into the calling code at the place where it is invoked. It is typically used for small functions to reduce the function call overhead.
+
+14. How do inline functions improve performance?
+
+Inline functions improve performance by eliminating the overhead associated with function calls (e.g., pushing arguments onto the stack, jumping to the function code, etc.). Instead, the function’s code is directly inserted where it is called, which can result in faster execution, especially for small functions.
+
+15. Explain the syntax for declaring an inline function.
+
+To declare an inline function, use the inline keyword before the function definition:
+
+cpp
+Copy
+Edit
+inline int add(int a, int b) {
+    return a + b;
+}
+16. What are macros in C++ and how are they different from inline functions?
+
+A macro is a preprocessor directive that defines a code template. The preprocessor substitutes the macro in the source code before compilation.
+
+Differences:
+
+Macros are replaced by the preprocessor before compilation, while inline functions are evaluated during compilation.
+
+Inline functions offer type safety, whereas macros don’t.
+
+Example of a macro:
+
+cpp
+Copy
+Edit
+#define SQUARE(x) ((x) * (x))
+17. Explain the advantages and disadvantages of using macros over inline functions.
+
+Advantages of Macros:
+
+Macros can be used for more complex code substitutions (like conditional compilation).
+
+They can be used where inline functions may not be applicable (e.g., for constant values or operations).
+
+Disadvantages of Macros:
+
+No type safety: The compiler does not check types in macros.
+
+Debugging can be difficult because macros are replaced before compilation, making it harder to trace errors.
+
+18. Provide an example to illustrate the differences between macros and inline functions.
+
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+// Macro
+#define SQUARE_MACRO(x) ((x) * (x))
+
+// Inline Function
+inline int square(int x) {
+    return x * x;
+}
+
+int main() {
+    int a = 5;
+    cout << "Macro result: " << SQUARE_MACRO(a) << endl;
+    cout << "Inline function result: " << square(a) << endl;
+    return 0;
+}
+Difference: The inline function checks types, while the macro doesn’t, which can lead to unexpected results.
+
+19. What is function overloading in C++?
+
+Function overloading occurs when multiple functions have the same name but differ in the number or types of parameters. The compiler differentiates between overloaded functions by looking at the function signature (parameter types and number).
+
+20. How does the compiler differentiate between overloaded functions?
+
+The compiler differentiates overloaded functions based on:
+
+The number of parameters.
+
+The types of parameters.
+
+The order of the parameters (in case of different types).
+
+The return type alone cannot distinguish overloaded functions.
+
+21. Provide an example of overloaded functions in C++.
+
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+int add(int a, int b) {
+    return a + b;
+}
+
+double add(double a, double b) {
+    return a + b;
+}
+
+int main() {
+    cout << "Integer addition: " << add(3, 4) << endl;
+    cout << "Double addition: " << add(3.5, 4.5) << endl;
+    return 0;
+}
+In this example, the add function is overloaded to handle both int and double types.
+22. What are default arguments in C++?
+
+Default arguments in C++ are values provided in a function declaration that are used if the caller does not provide a value for the corresponding parameter when calling the function. These values are optional during the function call.
+
+23. How do you specify default arguments in a function declaration?
+
+Default arguments are specified in the function declaration by assigning values to the parameters in the declaration (typically in the function prototype). The default values must be specified from right to left, meaning you cannot provide a default for a parameter in the middle of a list and leave one after it without a default.
+
+Example:
+
+cpp
+Copy
+Edit
+void printDetails(int age = 18, string name = "John");
+In this case, age and name have default values. If a caller doesn't provide them, these default values will be used.
+
+24. What are the rules for using default arguments in functions?
+
+Default arguments can only be specified once — in the function declaration or definition, but not both.
+
+Default arguments must appear from right to left. If a function has multiple parameters, the parameters on the right must have default values, while those on the left may not.
+
+You should not use default arguments in both the declaration and the definition of the same function.
+
+Default arguments should be provided only in the function prototype (or declaration) or at the first occurrence, but not in the function definition.
+
+25. Provide an example of a function with default arguments.
+
+Here’s an example of a function with default arguments:
+
+cpp
+Copy
+Edit
+#include <iostream>
+using namespace std;
+
+void greet(string name = "Guest", int age = 18) {
+    cout << "Hello, " << name << "! You are " << age << " years old." << endl;
+}
+
+int main() {
+    greet(); // Uses default values
+    greet("Alice"); // Uses default age
+    greet("Bob", 25); // Uses no defaults
+
+    return 0;
+}
+Output:
+
+sql
+Copy
+Edit
+Hello, Guest! You are 18 years old.
+Hello, Alice! You are 18 years old.
+Hello, Bob! You are 25 years old.
+In this example:
+
+The first call to greet() uses both the default arguments.
+
+The second call to greet("Alice") uses the default age of 18.
+
+The third call to greet("Bob", 25) uses no default arguments and provides both values explicitly.
