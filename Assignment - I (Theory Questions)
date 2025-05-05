@@ -1,0 +1,207 @@
+Q.1) 1.	What is the fundamental difference between procedural and object-oriented programming paradigms? Provide a brief example to illustrate.
+ans =>  Fundamental Difference Between Procedural and Object-Oriented Programming Paradigms
+Procedural Programming is based on the concept of procedures or functions. It follows a step-by-step approach where the program is divided into functions that operate on data. Data is typically separate from the functions.
+
+Object-Oriented Programming (OOP), on the other hand, organizes code around objects, which combine both data and the functions that operate on that data. It promotes encapsulation, reusability, and modularity.
+
+| Aspect            | Procedural Programming | Object-Oriented Programming          |
+| ----------------- | ---------------------- | ------------------------------------ |
+| Data & Functions  | Separated              | Bundled inside objects               |
+| Focus             | Functions              | Objects                              |
+| Code Reuse        | Less modular           | Promotes reusability via inheritance |
+| Example Languages | C, Pascal              | C++, Java, Python (OOP features)     |
+
+Procedural Approach (C-style C++):
+#include <iostream>
+using namespace std;
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    cout << "Sum: " << add(5, 3) << endl;
+    return 0;
+}
+
+Object-Oriented Approach (C++):
+#include <iostream>
+using namespace std;
+
+class Calculator {
+public:
+    int add(int a, int b) {
+        return a + b;
+    }
+};
+
+int main() {
+    Calculator calc;
+    cout << "Sum: " << calc.add(5, 3) << endl;
+    return 0;
+}
+
+Q.1) 2.	Define Object-Oriented Programming (OOP). What are its core characteristics?
+ans => Object-Oriented Programming (OOP) is a programming paradigm that organizes software design around objects, which are instances of classes. These objects contain data (attributes) and functions (methods) that operate on the data. OOP models real-world entities and their interactions, making code more reusable, modular, and scalable.
+
+💡 Core Characteristics of OOP
+Encapsulation
+
+Bundles data and methods that operate on the data within a class.
+
+Restricts direct access to some components, promoting data protection.
+
+Abstraction
+
+Hides complex implementation details and shows only essential features.
+
+Helps reduce programming complexity.
+
+Inheritance
+
+Allows a class (child) to inherit properties and behaviors from another class (parent).
+
+Promotes code reuse.
+
+Polymorphism
+
+Allows objects to be treated as instances of their parent class.
+
+Supports method overloading (same method name, different parameters) and overriding (same method name and parameters in derived class).
+
+Q.3)	Explain the concept of "abstraction" within the context of OOP. Why is it important?
+ans =>Abstraction means hiding internal implementation details and showing only the necessary functionality to the user.
+
+Why it's important:
+
+Reduces complexity by focusing on relevant details.
+
+Enhances code readability and maintainability.
+
+Supports modularity by separating interface from implementation.
+EX:-
+class Car {
+public:
+    void startEngine() {
+        // Abstracts complex internal steps like fuel injection, ignition, etc.
+        cout << "Engine started." << endl;
+    }
+};
+Q.4)	What are the benefits of using OOP over procedural programming?
+ans => Benefits of OOP Over Procedural Programming
+Modularity: Code is organized into classes and objects.
+
+Reusability: Inheritance allows code to be reused across projects.
+
+Maintainability: Easier to modify and debug parts without affecting others.
+
+Real-world modeling: Objects mimic real-world entities.
+
+Extensibility: Easier to add new features with minimal changes.
+Q.5)	Give a real-world example of a problem that is well-suited to be solved using an OOP approach. Explain why.
+ans => Real-World Problem Suited for OOP: Library Management System
+Why OOP?
+
+Entities like Book, Member, Librarian, and Loan can be modeled as objects.
+
+Shared behaviors (e.g., borrowing, returning books) can be defined in base classes.
+
+Encapsulation secures data like member details.
+
+Inheritance helps differentiate roles (e.g., Member vs. Librarian).
+
+Easier to extend the system with new features like fines, e-books, or memberships.
+
+
+Q.6)	Define the four key principles of OOP: Encapsulation, Inheritance, Polymorphism, and Abstraction.
+ans => Four Key Principles of OOP
+Encapsulation: Bundling data and methods; restricts direct access.
+
+Inheritance: One class derives from another, reusing its properties/methods.
+
+Polymorphism: One interface, multiple implementations.
+
+Abstraction: Hiding internal complexity; exposing only necessary parts.
+
+
+Q.7)	Explain how encapsulation helps to protect data and create modular code. Give an example using a class and its members.
+ans => Encapsulation
+Encapsulation protects an object’s state by exposing only selected components through accessors (getters/setters).
+
+Example:
+class BankAccount {
+private:
+    double balance;
+
+public:
+    void deposit(double amount) { balance += amount; }
+    double getBalance() const { return balance; }
+};
+Benefits:
+
+Prevents direct modification of data.
+
+Enables controlled access.
+
+Supports modular code.
+
+Q.8)	What is inheritance? How does it promote code reuse and maintainability? Provide a simple example using classes.
+ans => Inheritance
+Definition: Inheritance allows a class (child) to derive attributes and behavior from another class (parent).
+
+Example:
+class Vehicle {
+public:
+    void move() { cout << "Moving..." << endl; }
+};
+
+class Car : public Vehicle {
+public:
+    void honk() { cout << "Beep Beep!" << endl; }
+};
+Benefits:
+
+Promotes code reuse.
+
+Improves maintainability.
+
+Facilitates hierarchical classifications.
+Q.9)	Describe polymorphism. How does it contribute to flexibility and extensibility in software design? Give examples of function/operator overloading and function overriding.
+ans =>  Polymorphism
+Definition: Allows the same function name to behave differently depending on context.
+
+Types:
+
+Compile-time (Overloading):
+
+int add(int a, int b);
+double add(double a, double b);
+
+Run-time (Overriding):
+
+class Shape {
+public:
+    virtual void draw() { cout << "Drawing shape" << endl; }
+};
+class Circle : public Shape {
+public:
+    void draw() override { cout << "Drawing circle" << endl; }
+};
+
+class Shape {
+public:
+    virtual void draw() { cout << "Drawing shape" << endl; }
+};
+class Circle : public Shape {
+public:
+    void draw() override { cout << "Drawing circle" << endl; }
+};
+
+Q.10)	Explain the difference between "overloading" and "overriding".
+ans => 
+| Feature      | Overloading                               | Overriding                                  |
+| ------------ | ----------------------------------------- | ------------------------------------------- |
+| Occurs in    | Same class                                | Parent-child class relationship             |
+| Purpose      | Same method name, different parameters    | Redefine base class method in derived class |
+| Binding Time | Compile-time                              | Run-time                                    |
+| Example      | `add(int, int)` vs. `add(double, double)` | `draw()` in base vs. derived class          |
