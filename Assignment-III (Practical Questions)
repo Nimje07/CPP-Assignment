@@ -1,0 +1,508 @@
+// 54. Class Person
+class Person {
+private:
+    string name;
+    int age;
+public:
+    void setName(string n) { name = n; }
+    void setAge(int a) { age = a; }
+    string getName() { return name; }
+    int getAge() { return age; }
+};
+
+// 55. Class Student inheriting from Person
+class Student : public Person {
+private:
+    string studentID;
+public:
+    void setStudentID(string id) { studentID = id; }
+    string getStudentID() { return studentID; }
+};
+
+// 56. Class Car
+class Car {
+private:
+    string make;
+    string model;
+    int year;
+public:
+    Car(string m, string mo, int y) : make(m), model(mo), year(y) {}
+    void displayDetails() {
+        cout << "Make: " << make << ", Model: " << model << ", Year: " << year << endl;
+    }
+};
+
+// 57. Array of Car objects
+void displayCars() {
+    Car cars[2] = { Car("Toyota", "Corolla", 2020), Car("Honda", "Civic", 2021) };
+    for (int i = 0; i < 2; ++i) {
+        cars[i].displayDetails();
+    }
+}
+
+// 58. Class BankAccount
+class BankAccount {
+private:
+    string accountNumber;
+    double balance;
+public:
+    BankAccount(string acc, double bal) : accountNumber(acc), balance(bal) {}
+    void deposit(double amount) { balance += amount; }
+    void withdraw(double amount) { if (balance >= amount) balance -= amount; }
+    void display() {
+        cout << "Account: " << accountNumber << ", Balance: " << balance << endl;
+    }
+};
+
+// 59. Class Rectangle
+class Rectangle {
+private:
+    double length, width;
+public:
+    Rectangle(double l, double w) : length(l), width(w) {}
+    double area() { return length * width; }
+    double perimeter() { return 2 * (length + width); }
+};
+
+// 60. Class Employee
+class Employee {
+private:
+    string name, position;
+    double salary;
+public:
+    Employee(string n, string p, double s) : name(n), position(p), salary(s) {}
+    void display() {
+        cout << "Name: " << name << ", Position: " << position << ", Salary: " << salary << endl;
+    }
+};
+
+// 61. Class Counter
+class Counter {
+private:
+    static int count;
+public:
+    Counter() { ++count; }
+    static int getCount() { return count; }
+};
+int Counter::count = 0;
+
+// 62. Class Math with static functions
+class Math {
+public:
+    static int add(int a, int b) { return a + b; }
+    static int subtract(int a, int b) { return a - b; }
+    static int multiply(int a, int b) { return a * b; }
+    static double divide(int a, int b) { return (b != 0) ? (double)a / b : 0; }
+};
+
+// 63. Class Student with static data member
+class StudentWithCount {
+private:
+    static int studentCount;
+public:
+    StudentWithCount() { ++studentCount; }
+    static int getStudentCount() { return studentCount; }
+};
+int StudentWithCount::studentCount = 0;
+
+// 64. Class Book with parameterized constructor
+class Book {
+private:
+    string title, author;
+    int year;
+public:
+    Book(string t, string a, int y) : title(t), author(a), year(y) {}
+    void display() {
+        cout << "Title: " << title << ", Author: " << author << ", Year: " << year << endl;
+    }
+};
+// 65. Class Point with default, parameterized, and copy constructors
+class Point {
+private:
+    int x, y;
+public:
+    Point() : x(0), y(0) {}
+    Point(int a, int b) : x(a), y(b) {}
+    Point(const Point& p) : x(p.x), y(p.y) {}
+};
+
+// 66. Class Matrix with parameterized constructor
+class Matrix {
+private:
+    int data[3][3];
+public:
+    Matrix(int arr[3][3]) {
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 3; ++j)
+                data[i][j] = arr[i][j];
+    }
+};
+
+// 67. Class FileHandler with destructor
+class FileHandler {
+private:
+    fstream file;
+public:
+    FileHandler(string filename) { file.open(filename); }
+    ~FileHandler() { if (file.is_open()) file.close(); }
+};
+
+// 68. Class DynamicArray with destructor
+class DynamicArray {
+private:
+    int* arr;
+    int size;
+public:
+    DynamicArray(int s) : size(s) { arr = new int[size]; }
+    ~DynamicArray() { delete[] arr; }
+};
+
+// 69. Class Logger with destructor
+class Logger {
+public:
+    ~Logger() { cout << "Logger destroyed, writing logs..." << endl; }
+};
+
+// 70. Overloading + for Complex
+class Complex {
+private:
+    float real, imag;
+public:
+    Complex(float r = 0, float i = 0) : real(r), imag(i) {}
+    Complex operator+(const Complex& c) {
+        return Complex(real + c.real, imag + c.imag);
+    }
+};
+
+// 71. Overloading << and >> for Fraction
+class Fraction {
+private:
+    int numerator, denominator;
+public:
+    friend istream& operator>>(istream& in, Fraction& f) {
+        in >> f.numerator >> f.denominator;
+        return in;
+    }
+    friend ostream& operator<<(ostream& out, const Fraction& f) {
+        out << f.numerator << "/" << f.denominator;
+        return out;
+    }
+};
+
+// 72. Overloading == for Date
+class Date {
+private:
+    int day, month, year;
+public:
+    Date(int d, int m, int y) : day(d), month(m), year(y) {}
+    bool operator==(const Date& d) {
+        return (day == d.day && month == d.month && year == d.year);
+    }
+};
+
+// 73. Overloading [] for Vector
+class Vector {
+private:
+    int arr[10];
+public:
+    int& operator[](int index) { return arr[index]; }
+};
+
+// 74. Friend function for Box volume
+class Box {
+private:
+    int length, breadth, height;
+public:
+    Box(int l, int b, int h) : length(l), breadth(b), height(h) {}
+    friend int volume(Box a, Box b);
+};
+int volume(Box a, Box b) {
+    return (a.length + b.length) * (a.breadth + b.breadth) * (a.height + b.height);
+}
+
+// 75. Friend function for Circle area
+class Circle {
+private:
+    double radius;
+public:
+    Circle(double r) : radius(r) {}
+    friend double area(Circle c);
+};
+double area(Circle c) { return 3.14159 * c.radius * c.radius; }
+
+// 76. Friend function for Distance addition
+class Distance {
+private:
+    int feet, inches;
+public:
+    Distance(int f = 0, int i = 0) : feet(f), inches(i) {}
+    friend Distance add(Distance d1, Distance d2);
+};
+Distance add(Distance d1, Distance d2) {
+    int f = d1.feet + d2.feet;
+    int i = d1.inches + d2.inches;
+    f += i / 12;
+    i = i % 12;
+    return Distance(f, i);
+}
+
+// 77. Shape base and derived classes
+class Shape {
+public:
+    virtual void draw() = 0;
+};
+class CircleShape : public Shape {
+public:
+    void draw() override { cout << "Drawing Circle" << endl; }
+};
+class RectangleShape : public Shape {
+public:
+    void draw() override { cout << "Drawing Rectangle" << endl; }
+};
+class TriangleShape : public Shape {
+public:
+    void draw() override { cout << "Drawing Triangle" << endl; }
+};
+
+// 78. Animal base and derived classes
+class Animal {
+public:
+    virtual void sound() = 0;
+};
+class Dog : public Animal {
+public:
+    void sound() override { cout << "Woof" << endl; }
+};
+class Cat : public Animal {
+public:
+    void sound() override { cout << "Meow" << endl; }
+};
+class Bird : public Animal {
+public:
+    void sound() override { cout << "Chirp" << endl; }
+};
+
+// 79. Vehicle, Car, and Bike
+class Vehicle {
+public:
+    virtual void drive() = 0;
+};
+class Car : public Vehicle {
+public:
+    void drive() override { cout << "Driving Car" << endl; }
+};
+class Bike : public Vehicle {
+public:
+    void drive() override { cout << "Riding Bike" << endl; }
+};
+
+// 80. Single Inheritance
+class PersonBase {
+protected:
+    string name;
+};
+class EmployeeDerived : public PersonBase {
+private:
+    int id;
+};
+
+// 81. Multiple Inheritance
+class Parent1 {
+public:
+    void show1() { cout << "Parent1" << endl; }
+};
+class Parent2 {
+public:
+    void show2() { cout << "Parent2" << endl; }
+};
+class Child : public Parent1, public Parent2 {};
+
+// 82. Hierarchical Inheritance
+class BaseHierarchical {};
+class Derived1 : public BaseHierarchical {};
+class Derived2 : public BaseHierarchical {};
+class Derived3 : public BaseHierarchical {};
+
+// 83. Multilevel Inheritance
+class BaseLevel {};
+class Intermediate : public BaseLevel {};
+class DerivedFinal : public Intermediate {};
+// 84. Hybrid Inheritance Example
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    void showBase() {
+        cout << "Base class" << endl;
+    }
+};
+
+class Derived1 : virtual public Base {
+public:
+    void showDerived1() {
+        cout << "Derived1 class" << endl;
+    }
+};
+
+class Derived2 : virtual public Base {
+public:
+    void showDerived2() {
+        cout << "Derived2 class" << endl;
+    }
+};
+
+class Derived3 : public Derived1, public Derived2 {
+public:
+    void showDerived3() {
+        cout << "Derived3 class (Hybrid Inheritance)" << endl;
+    }
+};
+
+// 85. Library class
+class Library {
+private:
+    int bookCount;
+protected:
+    string location;
+public:
+    string name;
+    void setBookCount(int count) { bookCount = count; }
+    int getBookCount() const { return bookCount; }
+};
+
+// 86. Account class
+class Account {
+private:
+    int accountNumber;
+    double balance;
+public:
+    void setAccount(int acc, double bal) { accountNumber = acc; balance = bal; }
+    void display() const {
+        cout << "Account: " << accountNumber << ", Balance: $" << balance << endl;
+    }
+};
+
+// 87. Function Overriding
+class Shape {
+public:
+    virtual void draw() {
+        cout << "Drawing a shape" << endl;
+    }
+};
+
+class Circle : public Shape {
+public:
+    void draw() override {
+        cout << "Drawing a circle" << endl;
+    }
+};
+
+// 88. Employee and Manager
+class Employee {
+public:
+    virtual void showRole() {
+        cout << "Employee" << endl;
+    }
+};
+
+class Manager : public Employee {
+public:
+    void showRole() override {
+        cout << "Manager" << endl;
+    }
+};
+
+// 89. Virtual Base Class - Entity
+class Entity {
+public:
+    virtual void describe() = 0;
+};
+
+class Person : virtual public Entity {
+public:
+    void describe() override {
+        cout << "Person Entity" << endl;
+    }
+};
+
+class Organization : virtual public Entity {
+public:
+    void describe() override {
+        cout << "Organization Entity" << endl;
+    }
+};
+
+// 90. Avoid Diamond Problem
+class Animal {
+public:
+    virtual void speak() { cout << "Animal sound" << endl; }
+};
+
+class Mammal : virtual public Animal {};
+class Bird : virtual public Animal {};
+class Bat : public Mammal, public Bird {
+public:
+    void speak() override { cout << "Bat sound" << endl; }
+};
+
+// 91. Polynomial class
+class Polynomial {
+    // simplified version for demonstration
+public:
+    void add() { cout << "Adding polynomials" << endl; }
+    void multiply() { cout << "Multiplying polynomials" << endl; }
+};
+
+// 92. SparseMatrix class
+class SparseMatrix {
+public:
+    void add() { cout << "Adding sparse matrices" << endl; }
+    void multiply() { cout << "Multiplying sparse matrices" << endl; }
+};
+
+// 93. Time class
+class Time {
+    int hours, minutes;
+public:
+    Time(int h = 0, int m = 0) : hours(h), minutes(m) {}
+    void add(const Time& t) { cout << "Add Time" << endl; }
+    void subtract(const Time& t) { cout << "Subtract Time" << endl; }
+    bool compare(const Time& t) const { return (hours == t.hours && minutes == t.minutes); }
+};
+
+// 94. BigNumber class
+class BigNumber {
+public:
+    void add() { cout << "BigNumber addition" << endl; }
+    void multiply() { cout << "BigNumber multiplication" << endl; }
+};
+
+// 95. FileCompressor class
+class FileCompressor {
+public:
+    void compress() { cout << "Compressing file..." << endl; }
+    void decompress() { cout << "Decompressing file..." << endl; }
+};
+
+// 96. Network class
+class Network {
+public:
+    void transmitPacket() { cout << "Transmitting packet..." << endl; }
+};
+
+// 97. Cache class
+class Cache {
+public:
+    void storeData() { cout << "Storing data..." << endl; }
+    void retrieveData() { cout << "Retrieving data..." << endl; }
+};
+
+// 98. Game class
+class Game {
+    int score;
+public:
+    Game() : score(0) {}
+    void playerAction() { score += 10; cout << "Player acted, score: " << score << endl; }
+    void displayScore() const { cout << "Score: " << score << endl; }
+};
